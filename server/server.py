@@ -2,7 +2,7 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from model import Feedback
-from database import feedback_collection
+from .database import feedback_collection
 from bson import ObjectId
 app= FastAPI()
 origins = [
