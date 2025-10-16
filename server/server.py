@@ -1,7 +1,7 @@
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from model import Feedback
+from model import Feedback,Login
 from database import feedback_collection
 from bson import ObjectId
 app= FastAPI()
@@ -36,4 +36,9 @@ def get_feedbacks(page: int = Query(1, ge=1), limit: int = Query(5, ge=1, le=50)
         f["_id"] = str(f["_id"])
     return {"total": total, "page": page, "limit": limit, "data": feedbacks}
 
-        
+@app.post("/login")
+def login(payload:Login):
+    if payload.username == "admin" and payload.password == "password123":
+        return {"message": "Login successful","token":payload.password}
+    else:
+        raise HTTPException(status_code=401, detail="Invalid credentials")

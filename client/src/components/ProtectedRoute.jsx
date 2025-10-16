@@ -10,8 +10,12 @@ const ProtectedRoute = ({ children }) => {
 
     window.addEventListener("storage", handleStorageChange);
     window.addEventListener("tokenChange", handleStorageChange);
-  }, []);
-  if (token == "admin123") {
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("tokenChange", handleStorageChange);
+    };
+  }, [token]);
+  if (token == "password123") {
     return children;
   } else {
     return (

@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table, Rate } from "antd";
+import { useNavigate } from "react-router-dom";
 function AdminFeedback() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-
+  const navigate = useNavigate();
   const fetchFeedback = async () => {
     try {
       const res = await axios.get(
@@ -15,6 +16,7 @@ function AdminFeedback() {
       setPage(res.data.page);
       setLimit(res.data.limit);
     } catch (e) {
+      alert("Error while fetching feedbacks", e);
       console.error("error while fetching", e);
     }
   };
@@ -51,7 +53,7 @@ function AdminFeedback() {
       dataIndex: "rating",
       key: "rating",
       render: (value) => <Rate value={Number(value)} disabled />,
-      width: "20%",
+      width: "30%",
     },
     {
       title: "Feedback",
@@ -60,10 +62,30 @@ function AdminFeedback() {
       width: "30%",
     },
   ];
+  const logout = () => {
+    localStorage.removeItem("token");
+    window.dispatchEvent(new Event("tokenChange"));
+    navigate("/login");
+  };
   console.log(page, feedbacks, "feedbacks 1234");
   return (
     <div>
-      <h2>Feedback List </h2>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "20px",
+        }}
+      >
+        <h2>Feedback List </h2>
+        <button
+          style={{ backgroundColor: "gray", color: "white" }}
+          onClick={() => logout()}
+        >
+          Logout
+        </button>
+      </div>
+
       <Table
         dataSource={feedbacks}
         columns={columns}

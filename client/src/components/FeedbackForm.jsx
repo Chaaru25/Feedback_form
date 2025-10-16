@@ -1,46 +1,3 @@
-// import React, { useState } from "react";
-// import axios from "axios";
-
-// function FeedbackForm() {
-//   const [form, setForm] = useState({
-//     name: "",
-//     email: "",
-//     phone: "",
-//     rating: 0,
-//     feedback: "",
-//   });
-//   const [message, setMessage] = useState("");
-
-//   const handleChange = (e) =>
-//     setForm({ ...form, [e.target.name]: e.target.value });
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await axios.post(`http://127.0.0.1:8000/feedbacks`, form);
-//       setMessage("Feedback submitted Successfully ");
-//     } catch {
-//       setMessage("Error Submitting Feedback");
-//     }
-//   };
-//   return (
-//     <div>
-//       <h2>Submit Feedback</h2>
-//       <form onSubmit={handleSubmit}>
-//         {["name", "email", "phone", "rating", "feedback"].map((field) => (
-//           <div key={field}>
-//             <label>{field}</label>
-//             <input name={field} onChange={handleChange} required />
-//           </div>
-//         ))}
-//         <button type="submit">Submit</button>
-//       </form>
-//       <p>{message}</p>
-//     </div>
-//   );
-// }
-
-// export default FeedbackForm;
 import React, { useState } from "react";
 import { Form, Input, Button, Rate, message, Card } from "antd";
 import axios from "axios";
@@ -94,9 +51,11 @@ function FeedbackForm() {
     setLoading(true);
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}feedbacks`, values);
+      alert("Feedback submitted Successfully !");
       message.success("Feedback submitted successfully!");
       form.resetFields();
     } catch (error) {
+      alert("Error while submitting feedback", error);
       console.error(error);
       message.error("Error submitting feedback!");
     } finally {
