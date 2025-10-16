@@ -9,7 +9,7 @@ function AdminFeedback() {
   const fetchFeedback = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/feedbacks?page=${page}&limit=${limit}`
+        `${import.meta.env.VITE_API_URL}feedbacks?page=${page}&limit=${limit}`
       );
       setFeedbacks(res.data.data);
       setPage(res.data.page);
