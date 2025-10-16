@@ -6,8 +6,9 @@ from database import feedback_collection
 from bson import ObjectId
 app= FastAPI()
 origins = [
-    "http://localhost:5173",  # your React dev server
-    "http://127.0.0.1:5173",  # sometimes React uses 127.0.0.1
+    "https://feedbackform25.netlify.app",
+    "http://localhost:5173",  
+    "http://127.0.0.1:5173",  
 ]
 app.add_middleware(
     CORSMiddleware,
