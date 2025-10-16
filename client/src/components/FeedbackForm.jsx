@@ -93,7 +93,7 @@ function FeedbackForm() {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      await axios.post("http://127.0.0.1:8000/feedbacks", values);
+      await axios.post(`${import.meta.env.VITE_API_URL}/feedbacks`, values);
       message.success("Feedback submitted successfully!");
       form.resetFields();
     } catch (error) {
