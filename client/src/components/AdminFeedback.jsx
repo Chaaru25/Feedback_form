@@ -4,12 +4,16 @@ import { Table, Rate } from "antd";
 function AdminFeedback() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   const fetchFeedback = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}feedbacks`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}feedbacks?page=${page}&limit=${limit}`
+      );
       setFeedbacks(res.data.data);
       setPage(res.data.page);
+      setLimit(res.data.limit);
     } catch (e) {
       console.error("error while fetching", e);
     }
